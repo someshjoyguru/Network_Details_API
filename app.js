@@ -6,7 +6,7 @@ import puppeteer from "puppeteer-core";
 const app = express();
 app.use(express.json());
 
-const fetchNetworkData = async (website) => {
+const fetchNetworkData = async (website,options) => {
     try {
         console.log(website)
         // website=`https://www.${website}.com/`
@@ -18,7 +18,7 @@ const fetchNetworkData = async (website) => {
                 websiteType: typeof website
             };
         }
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch(options);
         const page = await browser.newPage();
 
         await page.setRequestInterception(true);
@@ -128,7 +128,7 @@ app.get("/fetchNetworkData", async (req, res) => {
     try {
         const website = req.body.website; 
         console.log(website);
-        const data = await fetchNetworkData(website);
+        const data = await fetchNetworkData(website,options);
         res.json(data);
     } catch (err) {
         res.status(500).json({ success: false, error: "Internal server error" });
