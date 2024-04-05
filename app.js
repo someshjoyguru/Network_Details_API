@@ -9,7 +9,7 @@ app.use(express.json());
 const fetchNetworkData = async (website,options) => {
     try {
         console.log(website)
-        // website=`https://www.${website}.com/`
+        website=`https://www.${website}.com/`
         if (!validUrl.isUri(website)) {
             return {
                 success: false,
