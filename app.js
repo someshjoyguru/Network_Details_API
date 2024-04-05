@@ -99,7 +99,7 @@ const fetchNetworkData = async (website,options) => {
         console.error("Error:", err);
         return {
             success: false,
-            error: "Internal server error"
+            error: err.message
         };
     }
 };
@@ -131,7 +131,7 @@ app.get("/fetchNetworkData", async (req, res) => {
         const data = await fetchNetworkData(website,options);
         res.json(data);
     } catch (err) {
-        res.status(500).json({ success: false, error: "Internal server error" });
+        res.status(500).json({ success: false, error: err.message });
     }
 });
 
