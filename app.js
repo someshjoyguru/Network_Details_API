@@ -112,7 +112,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Network Details API");
 });
 
-app.get("/fetchNetworkData", async (req, res) => {
+app.get("/fetchNetworkData/:website", async (req, res) => {
     let options = {};
       if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
         options = {
@@ -126,7 +126,7 @@ app.get("/fetchNetworkData", async (req, res) => {
 
     
     try {
-        const website = req.body.website; 
+        const website = req.params.website; 
         console.log(website);
         const data = await fetchNetworkData(website,options);
         res.json(data);
