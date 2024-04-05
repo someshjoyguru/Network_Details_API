@@ -1,10 +1,9 @@
 import express from "express";
-import puppeteer from "puppeteer";
 import validUrl from 'valid-url';
-
+import chrome from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
 
 const app = express();
-
 app.use(express.json());
 
 const fetchNetworkData = async (website) => {
