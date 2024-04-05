@@ -1,7 +1,7 @@
 import express from "express";
 import puppeteer from "puppeteer";
 import validUrl from 'valid-url';
-
+import { URL } from 'url'
 
 const app = express();
 
@@ -34,8 +34,9 @@ const fetchNetworkData = async (website) => {
                 const requestResourceType = request.resourceType();
 
                 if (requestResourceType === "xhr" || requestResourceType === "fetch") {
-                    const protocolType = requestUrl.split(":")[0];
-                    const service = requestUrl.split(":")[1].replace("//", "");
+                    const parsedUrl = new URL(requestUrl);
+                    const protocolType = parsedUrl.protocol;
+                    const service = parsedUrl.hostname;
                     const srcBytes = requestPostData ? requestPostData.length : 0;
                     const dstBytes = (request.headers() + requestPostData).length;
 
@@ -113,7 +114,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Network Details API");
 });
 
-app.get("/fetchNetworkData", async (req, res) => {
+app.post("/fetchNetworkData", async (req, res) => {
     try {
         const website = req.body.website; 
         console.log(website);
@@ -124,7 +125,7 @@ app.get("/fetchNetworkData", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
