@@ -1,15 +1,16 @@
 import express from "express";
+import puppeteer from "puppeteer";
 import validUrl from 'valid-url';
-import chrome from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+
 
 const app = express();
+
 app.use(express.json());
 
-const fetchNetworkData = async (website,options) => {
+const fetchNetworkData = async (website) => {
     try {
         console.log(website)
-        website=`https://www.${website}.com/`
+        // website=`https://www.${website}.com/`
         if (!validUrl.isUri(website)) {
             return {
                 success: false,
@@ -18,7 +19,7 @@ const fetchNetworkData = async (website,options) => {
                 websiteType: typeof website
             };
         }
-        const browser = await puppeteer.launch(options);
+        const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
         await page.setRequestInterception(true);
@@ -99,7 +100,7 @@ const fetchNetworkData = async (website,options) => {
         console.error("Error:", err);
         return {
             success: false,
-            error: err.message
+            error: "Internal server error"
         };
     }
 };
@@ -113,25 +114,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/fetchNetworkData", async (req, res) => {
-    let options = {};
-      if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-        options = {
-          args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-          defaultViewport: chrome.defaultViewport,
-          executablePath: await chrome.executablePath,
-          headless: true,
-          ignoreHTTPSErrors: true,
-        };
-      }
-
-    
     try {
-        const website = req.params.website; 
+        const website = req.body.website; 
         console.log(website);
-        const data = await fetchNetworkData(website,options);
+        const data = await fetchNetworkData(website);
         res.json(data);
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        res.status(500).json({ success: false, error: "Internal server error" });
     }
 });
 
