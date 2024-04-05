@@ -11,9 +11,16 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "node": "^14"
+  },
   "dependencies": {
-    "express": "^4.19.2",
-    "puppeteer": "^22.6.2",
+    "chrome-aws-lambda": "^6",
+    "express": "^4.18.1",
+    "puppeteer-core": "^6",
     "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "puppeteer": "^16.2.0"
   }
 }
