@@ -2,11 +2,11 @@ import express from "express";
 import puppeteer from "puppeteer";
 import validUrl from 'valid-url';
 import { URL } from 'url'
-
+import cors from "cors"
 const app = express();
 
 app.use(express.json());
-
+app.use(cors())
 const fetchNetworkData = async (website) => {
     try {
         console.log(website)
@@ -117,7 +117,6 @@ app.get("/", (req, res) => {
 app.post("/fetchNetworkData", async (req, res) => {
     try {
         const website = req.body.website; 
-        console.log(website);
         const data = await fetchNetworkData(website);
         res.json(data);
     } catch (err) {
@@ -125,7 +124,7 @@ app.post("/fetchNetworkData", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
