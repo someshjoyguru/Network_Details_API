@@ -1,13 +1,16 @@
 import express from "express";
 import puppeteer from "puppeteer";
 import validUrl from 'valid-url';
-import { URL } from 'url'
-import path from "path";
+import { URL, fileURLToPath } from 'url'
+import path, { dirname } from "path";
 import cors from "cors"
 const app = express();
 
 app.use(express.json());
 app.use(cors())
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 const fetchNetworkData = async (website) => {
