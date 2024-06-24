@@ -106,9 +106,7 @@ const fetchNetworkData = async (website) => {
     }
 };
 
-app.post("/", (req, res) => {
-    res.send("Welcome to the Network Details API");
-});
+
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Network Details API");
