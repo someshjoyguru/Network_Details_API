@@ -1,5 +1,5 @@
 {
-  "projects": [
+  "builds": [
     {
       "src": "backend/app.js",
       "use": "@vercel/node"
