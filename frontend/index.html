@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Details API</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Find Network Parameters for your URL</h1>
+        <input type="text" id="url-input" class="input-field" placeholder="Enter URL">
+        <button id="find-btn" class="btn" onclick="findNetworkDetailsHandler()">FIND</button>
+        <div id="loader" class="loader"></div>
+        <div id="message" class="message"></div>
+        <h2 id="heading" class="hidden">Network URL Details</h2>
+        <div id="results" class="results hidden"></div>
+    </div>
+</body>
+</html>

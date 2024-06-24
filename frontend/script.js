@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Details API</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Find Network Parameters for your URL</h1>
-        <input type="text" id="url-input" class="input-field" placeholder="Enter URL">
-        <button id="find-btn" class="btn" onclick="findNetworkDetailsHandler()">FIND</button>
-        <div id="loader" class="loader"></div>
-        <div id="message" class="message"></div>
-        <h2 id="heading" class="hidden">Network URL Details</h2>
-        <div id="results" class="results hidden"></div>
-    </div>
-
-    <script>
-        async function findNetworkDetailsHandler() {
+async function findNetworkDetailsHandler() {
     const urlInput = document.getElementById('url-input').value;
     console.log('Input URL:', urlInput); // Log the input URL to the console
     const findBtn = document.getElementById('find-btn');
@@ -39,13 +19,13 @@
     results.classList.add('hidden');
 
     try {
-        const response = await fetch('http://localhost:3001/fetchNetworkData', {
+        const response = await fetch(`/api/fetchNetworkData`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ website: urlInput }),
-            timeout: 15000 // Set a timeout of 15 seconds
+            timeout: 15000
         });
 
         if (!response.ok) {
@@ -88,7 +68,3 @@ function displayResults(data) {
     heading.classList.remove('hidden');
     results.classList.remove('hidden');
 }
-
-    </script>
-</body>
-</html>
