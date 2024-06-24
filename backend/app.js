@@ -8,6 +8,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors())
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
 const fetchNetworkData = async (website) => {
     try {
         console.log(website)
@@ -123,7 +125,6 @@ app.post("/fetchNetworkData", async (req, res) => {
     }
 });
 
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

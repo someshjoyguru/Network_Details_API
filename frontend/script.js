@@ -1,6 +1,6 @@
 async function findNetworkDetailsHandler() {
     const urlInput = document.getElementById('url-input').value;
-    console.log('Input URL:', urlInput); // Log the input URL to the console
+    console.log('Input URL:', urlInput);
     const findBtn = document.getElementById('find-btn');
     const loader = document.getElementById('loader');
     const message = document.getElementById('message');
