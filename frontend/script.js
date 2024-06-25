@@ -19,7 +19,7 @@ async function findNetworkDetailsHandler() {
     results.classList.add('hidden');
 
     try {
-        const response = await fetch(`https://network-details.vercel.app/api/fetchNetworkData`, {
+        const response = await fetch(`https://network-details-backend.onrender.com/fetchNetworkData`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
