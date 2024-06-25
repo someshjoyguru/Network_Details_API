@@ -8,6 +8,13 @@ This sub-project was developed as a part of Hack-de-Science Hackathon conducted 
 
 ![320207407-be1d72ae-a901-4a6c-85e2-057748cb8bc4](https://github.com/someshjoyguru/Network_Details_API/assets/99559848/af663ae2-b6c5-4b33-88a2-de26d5626e56)
 
+# WORKING VIDEO
+
+https://github.com/someshjoyguru/Network_Details_API/assets/99559848/3f0cb9a8-fd1c-4f98-b581-03b622aef9ec
+
+
+## SCREENSHOTS
+
 #### LANDING UI
 ![image](https://github.com/someshjoyguru/Network_Details_API/assets/99559848/4e380ee6-4e26-4626-a5e0-60506098b548)
 
