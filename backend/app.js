@@ -22,25 +22,19 @@ app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 const fetchNetworkData = async (website) => {
     try {
-        console.log(website)
-        // website=`https://www.${website}.com/`
         if (!validUrl.isUri(website)) {
             return {
                 success: false,
-                error: "Invalid website URL",
-                website: website,
-                websiteType: typeof website
+                error: "Invalid website URL"
             };
         }
+
         const browser = await puppeteer.launch({
             args: ["--no-sandbox", "--disable-setuid-sandbox", "--single-process", "--no-zygote"],
-            executablePath:
-                process.env.NODE_ENV === "production"
-                    ? process.env.PUPPETEER_EXECUTABLE_PATH
-                    : puppeteer.executablePath(),
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
         });
-        const page = await browser.newPage();
 
+        const page = await browser.newPage();
         await page.setRequestInterception(true);
 
         const filteredNetworkData = [];
@@ -79,20 +73,14 @@ const fetchNetworkData = async (website) => {
         });
 
         await page.goto(website);
-
         await page.waitForNetworkIdle();
 
         const totalRequests = filteredNetworkData.length;
-        const sameServiceRecordCount = filteredNetworkData.filter(
-            (req) => req.service === "http"
-        ).length;
+        const sameServiceRecordCount = filteredNetworkData.filter((req) => req.service === "http").length;
         const differentServiceRecordCount = totalRequests - sameServiceRecordCount;
-        const destinationHostServiceRecordCount = Object.keys(
-            destinationHostServiceRecords
-        ).length;
-        const destinationHostSameServiceRecordRate =
-            destinationHostServiceRecordCount / totalRequests;
-        const countValue = totalRequests;
+        const destinationHostServiceRecordCount = Object.keys(destinationHostServiceRecords).length;
+        const destinationHostSameServiceRecordRate = destinationHostServiceRecordCount / totalRequests;
+
         const protocolType = filteredNetworkData.map((req) => req.protocolType);
         const service = filteredNetworkData.map((req) => req.service);
         const srcBytes = filteredNetworkData.map((req) => req.srcBytes);
@@ -100,30 +88,31 @@ const fetchNetworkData = async (website) => {
 
         await browser.close();
 
-        const successJSON = {
-            "protocol_type": protocolType,
-            "service": service.length,
-            "flag": totalRequests,
-            "src_bytes": srcBytes,
-            "dst_bytes": dstBytes,
-            "count": countValue,
-            "same_srv_rate": sameServiceRecordCount,
-            "diff_srv_rate": differentServiceRecordCount,
-            "dst_host_srv_count": destinationHostServiceRecordCount,
-            "dst_host_same_srv_rate": destinationHostSameServiceRecordRate
-        }
         return {
             success: true,
-            data: successJSON
+            data: {
+                protocol_type: protocolType,
+                service: service.length,
+                flag: totalRequests,
+                src_bytes: srcBytes,
+                dst_bytes: dstBytes,
+                count: totalRequests,
+                same_srv_rate: sameServiceRecordCount,
+                diff_srv_rate: differentServiceRecordCount,
+                dst_host_srv_count: destinationHostServiceRecordCount,
+                dst_host_same_srv_rate: destinationHostSameServiceRecordRate
+            }
         }
-    }catch (err) {
-        console.error("Error:", err);
+    } catch (err) {
+        console.error("Error in fetchNetworkData function:", err);
         return {
             success: false,
-            error: "Internal server error"
+            error: "Internal server error",
+            details: err.message
         };
     }
 };
+
 
 
 
