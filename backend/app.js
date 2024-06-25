@@ -12,7 +12,9 @@ const app = express();
 
 
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:3000","https://network-details.vercel.app"],
+}))
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
