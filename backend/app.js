@@ -4,11 +4,12 @@ import validUrl from 'valid-url';
 import { URL, fileURLToPath } from 'url'
 import path, { dirname } from "path";
 import cors from "cors"
+import dotenv from 'dotenv';
 
 import { exec } from "child_process";
+dotenv.config();
 const app = express();
 
-require('dotenv').config();
 
 app.use(express.json());
 app.use(cors())
