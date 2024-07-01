@@ -12,6 +12,9 @@ This sub-project was developed as a part of Hack-de-Science Hackathon conducted 
 
 https://github.com/someshjoyguru/Network_Details_API/assets/99559848/3f0cb9a8-fd1c-4f98-b581-03b622aef9ec
 
+## ACTUAL PROJECT VIDEO MADE DURING HACKATHON
+
+https://github.com/someshjoyguru/Network_Details_API/assets/99559848/3f1cc9ca-7099-4a28-823f-1f9ba8d22168
 
 ## SCREENSHOTS
 
